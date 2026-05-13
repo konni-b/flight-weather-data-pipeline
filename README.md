@@ -32,3 +32,8 @@ This project implements an ELT (Extract, Load, Transform) architecture using the
 * **Data Warehouse:** BigQuery
 * **Transformation:** dbt (Data Build Tool) *(Upcoming)*
 * **Orchestration:** Kestra *(Upcoming)*
+
+
+## Sources
+
+* **Wikipedia:** [2022 Southwest Airlines scheduling crisis](https://en.wikipedia.org/wiki/2022_Southwest_Airlines_scheduling_crisis)
