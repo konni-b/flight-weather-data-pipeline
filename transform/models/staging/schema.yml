@@ -1,0 +1,84 @@
+version: 2
+
+sources:
+  - name: raw
+    database: flight-weather-pipeline-2026
+    schema: raw
+    tables:
+      - name: flights
+        description: "Raw BTS On-Time Performance data loaded from GCS. Contains all US domestic flights for Dec 2022 and Jan 2023."
+
+models:
+  - name: stg_flights
+    description: >
+      Cleaned and renamed BTS On-Time Performance data.
+      Selects relevant columns, standardises names to snake_case,
+      and casts data types. One row per flight leg.
+    columns:
+      - name: flight_date
+        description: "Date of the flight."
+        data_tests:
+          - not_null
+
+      - name: airline_code
+        description: "IATA carrier code of the reporting airline (e.g. WN = Southwest, DL = Delta)."
+        data_tests:
+          - not_null
+
+      - name: flight_number
+        description: "Flight number assigned by the reporting airline."
+        data_tests:
+          - not_null
+
+      - name: origin_airport_code
+        description: "IATA code of the origin airport."
+        data_tests:
+          - not_null
+
+      - name: dest_airport_code
+        description: "IATA code of the destination airport."
+        data_tests:
+          - not_null
+
+      - name: is_cancelled
+        description: "1 if the flight was cancelled, 0 otherwise."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false
+
+      - name: cancellation_code
+        description: >
+          Reason for cancellation.
+          A = Carrier, B = Weather, C = National Air System, D = Security.
+          NULL if the flight was not cancelled.
+
+      - name: is_diverted
+        description: "1 if the flight was diverted, 0 otherwise."
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false
+
+      - name: dep_delay_minutes
+        description: "Departure delay in minutes. Negative values indicate early departure. NULL if flight was cancelled."
+
+      - name: arr_delay_minutes
+        description: "Arrival delay in minutes. Negative values indicate early arrival. NULL if flight was cancelled."
+
+      - name: weather_delay_minutes
+        description: "Minutes of delay attributed to weather. NULL if no delay or flight was cancelled."
+
+      - name: carrier_delay_minutes
+        description: "Minutes of delay attributed to the carrier. NULL if no delay or flight was cancelled."
+
+      - name: nas_delay_minutes
+        description: "Minutes of delay attributed to the National Air System. NULL if no delay or flight was cancelled."
+
+      - name: late_aircraft_delay_minutes
+        description: "Minutes of delay attributed to a late incoming aircraft. NULL if no delay or flight was cancelled."
+
+      - name: distance_miles
+        description: "Great circle distance between origin and destination airports in miles."
