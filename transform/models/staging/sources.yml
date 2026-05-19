@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    database: flight-weather-pipeline-2026
+    schema: raw
+    tables:
+      - name: flights
+        description: "Raw BTS On-Time Performance data for Dec 2022 and Jan 2023"
