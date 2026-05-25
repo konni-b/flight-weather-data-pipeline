@@ -7,6 +7,8 @@ sources:
     tables:
       - name: flights
         description: "Raw BTS On-Time Performance data loaded from GCS. Contains all US domestic flights for Dec 2022 and Jan 2023."
+      - name: airports
+        description: "Airports data containing iata_code, location information, and more."
 
 models:
   - name: stg_flights
@@ -82,3 +84,28 @@ models:
 
       - name: distance_miles
         description: "Great circle distance between origin and destination airports in miles."
+
+  - name: stg_airports
+    description: >
+      Prepared airports table. Select columns, filter for country and iata code not null.
+    columns:
+      - name: iata_code
+        description: "IATA Code of airport."
+        data_tests:
+          - not_null
+          - unique
+      - name: name
+        description: "Name of the airport."
+      - name: city
+        description: "City the airport belongs to."
+      - name: country
+        description: "Country the airport belongs to."
+      - name: latitude
+        description: "Latitude of the airport."
+        data_tests:
+          - not_null
+      - name: longitude
+        description: "Longitude of the airport."
+        data_tests:
+          - not_null
+
