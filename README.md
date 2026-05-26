@@ -30,7 +30,7 @@ This project implements an ELT (Extract, Load, Transform) architecture using the
 * **Cloud Provider:** Google Cloud Platform (GCP)
 * **Data Lake:** Google Cloud Storage (GCS)
 * **Data Warehouse:** BigQuery
-* **Transformation:** dbt (Data Build Tool) *(Upcoming)*
+* **Transformation:** dbt (Data Build Tool)
 * **Orchestration:** Kestra *(Upcoming)*
 
 
