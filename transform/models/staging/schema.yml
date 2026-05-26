@@ -9,6 +9,8 @@ sources:
         description: "Raw BTS On-Time Performance data loaded from GCS. Contains all US domestic flights for Dec 2022 and Jan 2023."
       - name: airports
         description: "Airports data containing iata_code, location information, and more."
+      - name: weather
+        description: "Weather data loaded from GCS. Contains weather data for 10 airports for Dec 2022 and Jan 2023."
 
 models:
   - name: stg_flights
@@ -108,4 +110,32 @@ models:
         description: "Longitude of the airport."
         data_tests:
           - not_null
+  - name: stg_weather
+    columns:
+      - name: iata_code
+        description: "IATA Code of airport."
+        data_tests:
+          - not_null
+      - name: date
+        description: "Date of the weather event."
+      - name: temp_avg
+        description: "The average air temperature in °C."
+      - name: temp_min
+        description: "The minimum air temperature in °C."
+      - name: temp_max
+        description: "The maximum air temperature in °C."
+      - name: precipitation
+        description: "The daily precipitation total in mm."
+      - name: snow_depth
+        description: "The maximum snow depth in mm."
+      - name: wind_direction
+        description: "The average wind direction in degrees (°)."
+      - name: wind_speed
+        description: "The average wind speed in km/h."
+      - name: peak_wind_gust
+        description: "The peak wind gust in km/h."
+      - name: air_pressure
+        description: "The average sea-level air pressure in hPa."
+      - name: total_sunshine
+        description: "The daily sunshine total in minutes (m)."
 
