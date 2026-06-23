@@ -110,7 +110,14 @@ models:
         description: "Longitude of the airport."
         data_tests:
           - not_null
+
   - name: stg_weather
+    description: >
+      Cleaned and typed daily weather observations from Meteostat.
+      One row per airport per day for Dec 2022 and Jan 2023.
+    data_tests:
+      - unique:
+          column_name: "concat(iata_code, cast(date as string))"
     columns:
       - name: iata_code
         description: "IATA Code of airport."
@@ -118,6 +125,8 @@ models:
           - not_null
       - name: date
         description: "Date of the weather event."
+        data_tests:
+          - not_null
       - name: temp_avg
         description: "The average air temperature in °C."
       - name: temp_min
@@ -138,4 +147,4 @@ models:
         description: "The average sea-level air pressure in hPa."
       - name: total_sunshine
         description: "The daily sunshine total in minutes (m)."
-
+    
