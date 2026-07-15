@@ -6,6 +6,10 @@ It reads raw data from BigQuery (`raw` dataset) and transforms it into clean, an
 
 ---
 
+## Lineage Graph
+
+![dbt lineage graph](../docs/lineage_graph.png)
+
 ## Project Structure
 
 ```
@@ -31,6 +35,19 @@ models/
 |--------|---------|-------------|
 | `raw.flights` | BTS On-Time Performance | All US domestic flights, Dec 2022 & Jan 2023 |
 | `raw.weather` | Meteostat API | Daily weather observations per airport location |
+| `raw.airports` | OpenFlights | Airport reference data with IATA codes and coordinates |
+
+---
+
+## Models
+
+| Model | Layer | Description |
+|--------|---------|-------------|
+| `stg_flights` | Staging | Cleaned BTS flight data, one row per flight leg |
+| `stg_weather` | Staging | Cleaned Meteostat daily weather observations |
+| `stg_airports` | Staging | US airports filtered from OpenFlights reference data |
+| `int_flights_weather` | Intermediate | Flights joined to weather by origin airport and date |
+| `fct_flights` | Marts | Flight-level analytical table with derived cancellation flags |
 
 ---
 
